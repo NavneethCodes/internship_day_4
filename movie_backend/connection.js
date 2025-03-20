@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://navneetharun04:NHFLCcYxxiWcPdwt@cluster.miv9dum.mongodb.net/?retryWrites=true&w=majority&appName=Cluster').then((res)=>{
-    console.log('DB is connected')
+const mongoose=require('mongoose');
+mongoose.connect('mongodb+srv://farooqafrina28:MJefQFa8RIjkb0Se@cluster0.7af0a07.mongodb.net/moviedb?retryWrites=true&w=majority&appName=Cluster0').then((res)=>{
+    console.log("db is connected")
 }).catch((res)=>{
-    console.log('DB is not connected')
+    console.log('db is not connected')
 })
