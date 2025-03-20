@@ -7,5 +7,5 @@ const movieSchema=mongoose.Schema({
     poster:String
 })
 
-const MovieData=mongoose.model('movie',movieSchema);//creating model movie basedin movie schema
-module.exports=MovieData//expanding so that other files can acces this
+const MovieData=mongoose.model('movie',movieSchema);
+module.exports=MovieData

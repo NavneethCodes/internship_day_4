@@ -1,97 +1,122 @@
-import React from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';  
-
+import react,{useState} from 'react'
+import axios from 'axios';
 const Add = () => {
-  const [form, setForm] = useState(
-    {
-      name: "",
-      director: "",
-      category: "",
-      year:"",
-      link:""
+
+    const [form,setForm]=useState(
+      {
+        name:"",
+        director:"",
+        category:"",
+        relyear:"",
+        poster:""
+      }
+    )
+
+    function valueFetch(e){
+      // console.log(e)
+      setForm({...form,[e.target.name]:e.target.value})
     }
-  ) 
+    let sendData = () => {
+      console.log(form);
+      axios.post("http://localhost:4000/newmovie", form).then(() => {
+        // Reset form fields after successful submission
+        setForm({
+          name: "",
+          director: "",
+          category: "",
+          relyear: "",
+          poster: ""
+        });
+      });
+    };
 
-  let valueAdd=() =>{
-    console.log(form)
-  }
+    return (
+    <Box
+      component="form"
+      sx={{ display: 'flex', flexDirection: 'column', width: '25ch', gap: '16px',paddingLeft:"45%"}}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="name"
+        label="Name"
+        variant="filled"
+        name="name"
+        
+        value={form.name}
+        onChange={valueFetch}
+        InputProps={{ sx: { backgroundColor: 'white',color:'grey' } }}
+        InputLabelProps={{ sx: { color: 'black' } }}
+       
+      />
+      <TextField
+        id="category"
+        label="Category"
+        variant="filled"
+        name="category"
+        value={form.category}
+        onChange={valueFetch}
+        InputProps={{ sx: { backgroundColor: 'white',color:'grey' } }}
+        InputLabelProps={{ sx: { color: 'black' } }}
+        
+        
+      />
+      <TextField
+        id="director"
+        label="Director"
+        variant="filled"
+        name="director"
+        value={form.director}
+        onChange={valueFetch}
+        InputProps={{ sx: { backgroundColor: 'white',color:'grey' } }}
+        InputLabelProps={{ sx: { color: 'black' } }}
+        
+        
+      />
 
-  function valueCap(e){
-    setForm({...form, [e.target.name]:e.target.value})
-  }
+    <TextField
+        id="relyear"
+        label="Release-year"
+        variant="filled"
+        name="relyear"
+        value={form.relyear}
+        onChange={valueFetch}
+        
+        InputProps={{ sx: { backgroundColor: 'white',color:'grey' } }}
+        InputLabelProps={{ sx: { color: 'black' } }}
+        
+        
+      />
 
-  return (
-    <div>
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '100%' },
-            border: '1px solid black',
-            padding: 2,
-            borderRadius: 1,
-          }}
-          noValidate
-          autoComplete="off"
-        >            
-          <div>
-            <TextField
-              required
-              name="name"
-              label="Movie name (Required)"
-              variant="standard"
-              fullWidth
-              value={form.name}
-              onChange={valueCap}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              required
-              name="director"
-              label="Movie director (Required)"
-              variant="standard"
-              fullWidth
-              value={form.director}
-              onChange={valueCap}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              required
-              name="category"
-              label="Movie category (Required)"
-              variant="standard"
-              fullWidth
-              value={form.category}
-              onChange={valueCap}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              required
-              name="year"
-              label="Movie Release Year (Required)"
-              variant="standard"
-              fullWidth
-              value={form.year}
-              onChange={valueCap}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              name="link"
-              label="Link of poster"
-              variant="standard"
-              fullWidth
-              value={form.link}
-              onChange={valueCap}
-              sx={{ mb: 2 }}
-            />
-          </div>
-          <Button variant="contained" onClick={valueAdd}>Submit</Button>
-        </Box>
-    </div>
-  )
+    <TextField
+        id="poster"
+        label="Poster link"
+        variant="filled"
+        name="poster"
+        value={form.poster}
+        onChange={valueFetch}
+        InputProps={{ sx: { backgroundColor: 'white',color:'grey' } }}
+        InputLabelProps={{ sx: { color: 'black' } }}
+        
+        
+      />
+
+      <Stack spacing={2} direction="row">
+      <Button 
+      onClick={sendData}
+      variant="Contained" 
+      sx={{backgroundColor:"grey"}}>
+        SUBMIT
+        </Button>
+        {/* <small>count is {count}</small> */}
+    </Stack>
+    </Box>
+            )
 }
 
 export default Add;
