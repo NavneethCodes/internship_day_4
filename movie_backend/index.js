@@ -27,11 +27,16 @@ app.post('/newmovie',async(req,res) => {
     }
 });
 
-app.delete('/removemovie', async(req, res) => {
+app.delete('/removemovie/:id', async (req, res) => {
     try {
-
-    } catch {}
-});
+      const id = req.params.id;
+      await movieModel.findByIdAndDelete(id);
+      res.send(`Movie with ID: ${id} has been deleted`);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error deleting movie');
+    }
+  });
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
